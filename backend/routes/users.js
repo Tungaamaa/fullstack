@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const id = req.params.id;
 
-  const user = userData.find((user) => user.id === parseInt(id));
+  const user = userData.find((user) => user.id == (id));
 
   if (!user) {
     res.status(404).json({
@@ -39,7 +39,7 @@ router.put("/:id", (req, res) => {
   const id = req.params.id;
   const name = req.body.name;
 
-  const user = userData.find((user) => user.id === parseInt(id));
+  const user = userData.find((user) => user.id == (id));
 
   if (!user) {
     res.status(404).json({
@@ -64,20 +64,20 @@ router.post("/", (req, res) => {
 
 router.delete("/:id", (req, res) => {
     const id = req.params.id;
-    const user = userData.find((user) => user.id === parseInt(id));
+    const user = userData.find((user) => user.id == (id));
     if (!user) {
         res.status(404).json({
           message: "User not found",
         });
       }
-    // const index = userData.indexOf(user);
-    // userData.splice(index, 1);
+    const index = userData.indexOf(user);
+    userData.splice(index, 1);
 
-    // res.status(200).json(userData);
+    res.status(200).json(userData);
 
-    const updatedUserData = userData.filter((deletedUser) => deletedUser.id !== user.id);
+    // const updatedUserData = userData.filter((deletedUser) => deletedUser.id !== user.id);
 
-    res.status(200).json(updatedUserData);
+    // res.status(200).json(updatedUserData);
 });
 
 module.exports = router;
