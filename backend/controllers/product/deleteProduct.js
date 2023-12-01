@@ -1,0 +1,24 @@
+const Product = require("../../models/product");
+const mongoose = require("mongoose");
+
+
+const deleteProduct = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+     return res.status(400).json({ message: "Invalid product id" });
+    }
+ 
+    const product = await Product.findOneAndDelete(id);
+ 
+    if (!product) {
+     res.status(404).json({ message: "Product not found" });
+     return;
+    }
+
+    res.status(200).json({ message: "Product deleted successfully" });
+};
+
+module.exports = {
+    deleteProduct,
+};

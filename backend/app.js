@@ -1,12 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const usersRoutes = require("./routes/users");
 const productsRoutes = require("./routes/products");
+const servicesRoutes = require("./routes/services");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const port = process.env.PORT || 3000;
 
@@ -26,6 +29,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
+app.use("/services", servicesRoutes);
 
 //middleware error handling
 app.use((req, res, next) => {

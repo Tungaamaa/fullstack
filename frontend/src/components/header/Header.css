@@ -1,0 +1,15 @@
+.header-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    height: 150px;
+    width: 1080px;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+   
+}
