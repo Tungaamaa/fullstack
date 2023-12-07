@@ -9,7 +9,7 @@ const deleteProduct = async (req, res) => {
      return res.status(400).json({ message: "Invalid product id" });
     }
  
-    const product = await Product.findOneAndDelete(id);
+    const product = await Product.findByIdAndDelete(id);
  
     if (!product) {
      res.status(404).json({ message: "Product not found" });

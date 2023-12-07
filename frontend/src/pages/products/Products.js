@@ -3,10 +3,16 @@ import "./Products.css";
 import { Header } from "../../components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "../../components";
+import { CreateProductModal } from "./CreateProductModal";
 
 export const Products = () => {
-  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
+  const [products, setProducts] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -18,10 +24,22 @@ export const Products = () => {
     getProducts();
   }, []);
 
+  if (!products) {
+    return <div>products not found </div>;
+  }
+
   return (
     <div>
       <Header />
-      <div className="products-page-top">This is product page</div>
+      <div>
+        <div className="products-page-top">
+          <h1>This is products page</h1>
+        </div>
+
+        <div className="products-page-top">
+          <button onClick={handleOpen}>Create product</button>
+        </div>
+      </div>
       <div className="products-page-main">
         {products &&
           products.map((product) => (
@@ -37,6 +55,7 @@ export const Products = () => {
             </div>
           ))}
       </div>
+      <CreateProductModal open={open} handleClose={handleClose} />
     </div>
   );
 };

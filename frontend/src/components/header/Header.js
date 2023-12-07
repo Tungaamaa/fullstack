@@ -11,7 +11,7 @@ export const Header = () => {
         </span>
 
         <span>
-          <Link to="products">Products</Link>
+          <Link to="/products">Products</Link>
         </span>
       </div>
     </div>

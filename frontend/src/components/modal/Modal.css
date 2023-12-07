@@ -1,0 +1,14 @@
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    border: 1px solid ;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: beige;
+    border-radius: 5px;
+    
+}
