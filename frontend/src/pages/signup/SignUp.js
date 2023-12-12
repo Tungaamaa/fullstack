@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import "./SignUp.css";
 import * as yup from "yup";
+import axios from "axios";
 
 const validateForm = yup.object().shape({
   firstName: yup.string().min(4, "Please enter your complete name.").required(),
   lastName: yup.string().min(4, "Please enter your complete name.").required(),
   email: yup.string().email("Please provide a valid email address.").required(),
   password: yup
-    .string()
-    .min(
-      8,
-      "Please enter a valid password. It must be more than 8 characters long."
+    .string()   
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
     )
     .required(),
 });
@@ -49,6 +50,38 @@ export const SignUp = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const handleSubmit = async () => {
+    if (
+      formValues.firstName === "" ||
+      formValues.lastName === "" ||
+      formValues.email === "" ||
+      formValues.password === ""
+    ) {
+      setFormErrors({ ...formErrors, required: "All required fields" });
+    } else if (
+      formErrors.firstName !== "" ||
+      formErrors.lastName !== "" ||
+      formErrors.email !== "" ||
+      formErrors.password !== ""
+    ) {
+      setFormErrors({
+        ...formErrors,
+        required: "Please enter a valid form name or description",
+      });
+    }
+    try {
+      await axios.post("http://localhost:8080/users/sign-up", formValues);
+      setFormValues({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+      });
+      alert("sign-up sucessfully");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div>
       <div className="signup-page-content">
@@ -86,7 +119,7 @@ export const SignUp = () => {
             placeholder="Password"
           ></input>
           {formErrors.password}
-          <button>Submit</button>
+          <button onClick={handleSubmit}>Submit</button>
         </div>
       </div>
       <h1>{formErrors.required}</h1>

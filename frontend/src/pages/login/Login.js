@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Login.css";
 import * as yup from "yup";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const validateForm = yup.object().shape({
   email: yup.string().email("Please provide a valid email address.").required(),
@@ -14,6 +16,7 @@ const validateForm = yup.object().shape({
 });
 
 export const Login = () => {
+  const navigate = useNavigate();
   const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -37,6 +40,25 @@ export const Login = () => {
     password: "",
     required: "",
   });
+
+  const handleSignIn = async () => {
+    if (formValues.email === "" || formValues.password === "") {
+      setFormErrors({ ...formErrors, required: "All required fields" });
+    } else if (formErrors.email !== "" || formErrors.password !== "") {
+      setFormErrors({
+        ...formErrors,
+        required: "Please enter a valid email or password",
+      });
+    }
+    try {
+      await axios.post("http://localhost:8080/users/sign-in", formValues);
+      setFormValues({ email: "", password: "" });
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <div className="login-page-content">
@@ -58,12 +80,10 @@ export const Login = () => {
             name="password"
           ></input>
           <span>{formErrors.password}</span>
-          <button>Sign In</button>
+          <button onClick={handleSignIn}>Sign In</button>
         </div>
       </div>
-      <p>
-      {formErrors.required}
-    </p>
+      <p>{formErrors.required}</p>
     </div>
   );
 };

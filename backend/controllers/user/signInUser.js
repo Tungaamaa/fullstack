@@ -39,5 +39,4 @@ const signInUser = async (req, res) => {
 
 module.exports = { signInUser };
 
-//"email":"test1@gmail.com",
-//"password":"123@*Tljkjk"
+

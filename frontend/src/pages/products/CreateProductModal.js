@@ -45,7 +45,7 @@ export const CreateProductModal = (props) => {
 
   const handleSubmit = async () => {
     if (formValues.name === "" || formValues.description === "" || formValues.price === "" || formValues.category === "") {
-      setFormErrors({...formErrors, required: "All required fields"});
+      setFormErrors({...formErrors, required: "All fields required"});
     } else if (formErrors.name !== "" || formErrors.description !== "" || formErrors.price !== "" || formErrors.category !== "" ) {
       setFormErrors({...formErrors, required: "Please enter a valid form name or description"});
     }

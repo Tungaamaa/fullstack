@@ -9,9 +9,9 @@ const createToken = (id) => {
 };
 
 const signUpUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
-  if (!email || !password) {
+  if (!firstName || !lastName || !email || !password) {
     res.status(400).send("please provide a valid email and password");
     return;
   }
@@ -38,10 +38,15 @@ const signUpUser = async (req, res) => {
     //hasging the password
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = await User.create({ email, password: hashedPassword });
+    const newUser = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    });
     const token = createToken(newUser._id);
 
-    res.send(200).json({ newUser });
+    res.status(200).json({ newUser, token });
   } catch (error) {
     res.status(500).send(error.message);
     return;
