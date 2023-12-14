@@ -70,7 +70,12 @@ export const SignUp = () => {
       });
     }
     try {
-      await axios.post("http://localhost:8080/users/sign-up", formValues);
+      const response = await axios.post("http://localhost:8080/users/sign-up", formValues);
+
+      const user = response.data;
+
+      localStorage.setItem("user", JSON.stringify(user));
+
       setFormValues({
         firstName: "",
         lastName: "",

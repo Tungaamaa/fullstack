@@ -51,9 +51,15 @@ export const Login = () => {
       });
     }
     try {
-      await axios.post("http://localhost:8080/users/sign-in", formValues);
+    const response =  await axios.post("http://localhost:8080/users/sign-in", formValues);
       setFormValues({ email: "", password: "" });
       navigate("/");
+
+  
+      const user = response.data;
+
+      localStorage.setItem("user", JSON.stringify(user));
+
     } catch (error) {
       console.error(error);
     }
