@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "../../components";
+import { Modal } from "../../component";
 import axios from "axios";
 import * as yup from "yup";
 

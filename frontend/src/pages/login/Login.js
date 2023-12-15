@@ -3,6 +3,7 @@ import "./Login.css";
 import * as yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 
 const validateForm = yup.object().shape({
   email: yup.string().email("Please provide a valid email address.").required(),
@@ -16,6 +17,7 @@ const validateForm = yup.object().shape({
 });
 
 export const Login = () => {
+  const { signIn } = useUserContext();
   const navigate = useNavigate();
   const handleInput = (e) => {
     const name = e.target.name;
@@ -51,15 +53,18 @@ export const Login = () => {
       });
     }
     try {
-    const response =  await axios.post("http://localhost:8080/users/sign-in", formValues);
+      const response = await axios.post(
+        "http://localhost:8080/users/sign-in",
+        formValues
+      );
       setFormValues({ email: "", password: "" });
       navigate("/");
 
-  
       const user = response.data;
 
       localStorage.setItem("user", JSON.stringify(user));
 
+      signIn(user);
     } catch (error) {
       console.error(error);
     }

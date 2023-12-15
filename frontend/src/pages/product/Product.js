@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Product.css";
-import { Header } from "../../components";
+import { Header } from "../../component";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { EditProductModal } from "./EditProductModal";

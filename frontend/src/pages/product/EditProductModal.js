@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "../../components";
+import { Modal } from "../../component";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 

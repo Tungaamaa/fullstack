@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Products.css";
-import { Header } from "../../components";
+import { Header } from "../../component";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "../../components";
+import { Modal } from "../../component";
 import { CreateProductModal } from "./CreateProductModal";
 
 export const Products = () => {

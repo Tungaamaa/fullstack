@@ -75,6 +75,7 @@ export const SignUp = () => {
       const user = response.data;
 
       localStorage.setItem("user", JSON.stringify(user));
+      SignUp(user);
 
       setFormValues({
         firstName: "",
