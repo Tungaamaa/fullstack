@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../../component";
 import { CreateProductModal } from "./CreateProductModal";
+import { useUserContext } from "../../context/UserContext";
 
 export const Products = () => {
   const navigate = useNavigate();
@@ -14,9 +15,15 @@ export const Products = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const {currentUser, userContextLoading } = useUserContext();
+
   useEffect(() => {
     const getProducts = async () => {
-      const response = await axios.get("http://localhost:8080/products");
+      const response = await axios.get("http://localhost:8080/products", 
+      {headers: {
+        Authorization: `Bearer ${currentUser.token}`,
+      },
+    });
 
       const data = response.data;
       setProducts(data);

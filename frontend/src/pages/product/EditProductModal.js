@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Modal } from "../../component";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useUserContext } from "../../context/UserContext";
 
 export const EditProductModal = (props) => {
   const { open, handleClose, product } = props;
   const { id } = useParams();
+  const {currentUser, userContextLoading } = useUserContext();
 
   const [formValues, setFormValues] = useState({
     name: product.name,
@@ -22,7 +24,12 @@ export const EditProductModal = (props) => {
 
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:8080/products/${id}`, formValues);
+      await axios.put(`http://localhost:8080/products/${id}`, formValues,
+      {headers: {
+        Authorization: `Bearer ${currentUser.token}`,
+      },
+    }
+      );
       setFormValues({
         ...formValues,
         name: "",

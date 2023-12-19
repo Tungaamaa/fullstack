@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { EditProductModal } from "./EditProductModal";
 import { DeleteProductModal } from "./DeleteProductModal";
+import { useUserContext } from "../../context/UserContext";
 
 export const Product = () => {
   const [product, setProduct] = useState();
@@ -18,13 +19,18 @@ export const Product = () => {
   const [openDelete, setOpenDelete] = React.useState(false);
   const handleOpenDelete = () => setOpenDelete(true);
   const handleCloseDelete = () => setOpenDelete(false);
+  const {currentUser, userContextLoading } = useUserContext();
 
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/products/${id}`
+          `http://localhost:8080/products/${id}`,
+          {headers: {
+            Authorization: `Bearer ${currentUser.token}`,
+          },
+        }
         );
         const data = response.data;
         setProduct(data);
@@ -34,7 +40,11 @@ export const Product = () => {
     };
     fetchProduct();
     return () => fetchProduct();
-  }, []);
+  }, [id, currentUser.token]);
+
+  if (userContextLoading) {
+    return <div>Loading...</div>
+  }
 
   if (!product) {
     return (

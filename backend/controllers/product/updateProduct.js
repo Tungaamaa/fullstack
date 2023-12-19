@@ -8,9 +8,10 @@ const updateProduct = async (req, res) => {
      return res.status(400).json({ message: "Invalid product id" });
     }
 
-    const updatedProduct = await Product.findOneAndUpdate(
-        { _id: id },
-        {...req.body} 
+    const updatedProduct = await Product.findByIdAndUpdate(
+        id,
+        {...req.body}, 
+        { new: true}
     );
 
     if (!updatedProduct) {
@@ -18,7 +19,7 @@ const updateProduct = async (req, res) => {
         return;
     }
 
-    res.status(200).json({ message: "Product updated successfully" });
+    res.status(200).json(updatedProduct);
 };
 
 module.exports = {

@@ -16,7 +16,7 @@ const createProduct = async (req, res) => {
           category,
         });
   
-        res.status(201).json({ product });
+        res.status(201).json(product);
       }
     } catch (err) {
       return res.status(500).json({

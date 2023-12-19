@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Modal } from "../../component";
 import axios from "axios";
 import * as yup from "yup";
+import { useUserContext } from "../../context/UserContext";
+
 
 const validateForm = yup.object().shape({
 name: yup.string().min(2, "it must be more than 2 characters").required(),
@@ -12,6 +14,8 @@ category: yup.string().required(),
 
 export const CreateProductModal = (props) => {
   const { open, handleClose } = props;
+
+  const {currentUser, userContextLoading } = useUserContext();
 
   const [formValues, setFormValues] = useState({
     name: "",
@@ -50,7 +54,11 @@ export const CreateProductModal = (props) => {
       setFormErrors({...formErrors, required: "Please enter a valid form name or description"});
     }
   try {
-    await axios.post("http://localhost:8080/products", formValues);
+    await axios.post("http://localhost:8080/products", formValues,
+    {headers: {
+      Authorization: `Bearer ${currentUser.token}`,
+    },
+  });
     
     setFormValues({
       name: "",
