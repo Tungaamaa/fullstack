@@ -1,15 +1,25 @@
 .header-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
 }
 
 .header {
-    height: 150px;
-    width: 1080px;
-    display: flex;
-    justify-content: center;
-    justify-content: space-between;
-    align-items: center;
-   
+  display: flex;
+  justify-content: center;
+  background-color: #444;
+  padding: 10px 0;
+}
+.header-items {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.header-items:hover {
+  background-color: #555;
 }

@@ -93,7 +93,8 @@ export const SignUp = () => {
       <div className="signup-page-content">
         <div className="signup-page-container">
           <h1>Sign Up</h1>
-          <input
+          <input 
+          className="signup-input"
             type="text"
             name="firstName"
             value={formValues.firstName}
@@ -102,6 +103,7 @@ export const SignUp = () => {
           ></input>
           {formErrors.firstName}
           <input
+          className="signup-input"
             type="text"
             name="lastName"
             value={formValues.lastName}
@@ -110,6 +112,7 @@ export const SignUp = () => {
           ></input>
           {formErrors.lastName}
           <input
+          className="signup-input"
             type="text"
             name="email"
             value={formValues.email}
@@ -118,6 +121,7 @@ export const SignUp = () => {
           ></input>
           {formErrors.email}
           <input
+          className="signup-input"
             type="text"
             name="password"
             value={formValues.password}
@@ -125,7 +129,7 @@ export const SignUp = () => {
             placeholder="Password"
           ></input>
           {formErrors.password}
-          <button onClick={handleSubmit}>Submit</button>
+          <button className="signup-button" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
       <h1>{formErrors.required}</h1>

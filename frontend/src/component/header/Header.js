@@ -14,14 +14,14 @@ export const Header = () => {
     return (
       <div className="header-main">
         <div className="header">
-          <span>
+          <span className="header-items">
             <Link to="/">Home</Link>
           </span>
 
-          <span>
+          <span className="header-items">
             <Link to="/products">Products</Link>
           </span>
-          <span onClick={signOut}>Logout</span>
+          <span className="header-items" onClick={signOut}>Logout</span>
         </div>
       </div>
     );
@@ -30,14 +30,14 @@ export const Header = () => {
   return (
     <div className="header-main">
       <div className="header">
-        <span>
+        <span className="header-items">
           <Link to="/">Home</Link>
         </span>
 
-        <span>
+        <span className="header-items">
           <Link to="/login">sign-in</Link>
         </span>
-        <span>
+        <span className="header-items">
           <Link to="/sign-up">sign-up</Link>
         </span>
       </div>

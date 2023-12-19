@@ -81,6 +81,7 @@ export const Login = () => {
             onChange={handleInput}
             value={formValues.email}
             name="email"
+            className="login-form"
           ></input>
           <span>{formErrors.email}</span>
           <input
@@ -89,9 +90,10 @@ export const Login = () => {
             value={formValues.password}
             onChange={handleInput}
             name="password"
+            className="login-form"
           ></input>
           <span>{formErrors.password}</span>
-          <button onClick={handleSignIn}>Sign In</button>
+          <button className="login-form-button" onClick={handleSignIn}>Sign In</button>
         </div>
       </div>
       <p>{formErrors.required}</p>
