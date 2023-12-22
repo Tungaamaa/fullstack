@@ -2,6 +2,7 @@ import React from "react";
 import "./Home.css";
 import { Header } from "../../component";
 import { useUserContext } from "../../context/UserContext";
+import homepage from "../../images/homepage-background.png";
 
 export const Home = () => {
   const { currentUser, userContextLoading } = useUserContext();
@@ -14,6 +15,9 @@ export const Home = () => {
   return (
     <div>
       <Header />
+      <div>
+      <img className="homepage" src={homepage}/>
+      </div>
       from home
     </div>
   );

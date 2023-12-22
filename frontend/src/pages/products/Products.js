@@ -6,30 +6,30 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from "../../component";
 import { CreateProductModal } from "./CreateProductModal";
 import { useUserContext } from "../../context/UserContext";
+import { useProductContext } from "../../context/ProductContext";
 
 export const Products = () => {
   const navigate = useNavigate();
 
-  const [products, setProducts] = useState([]);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const {currentUser, userContextLoading } = useUserContext();
+  const { products } = useProductContext();
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const response = await axios.get("http://localhost:8080/products", 
-      {headers: {
-        Authorization: `Bearer ${currentUser.token}`,
-      },
-    });
+  // useEffect(() => {
+  //   const getProducts = async () => {
+  //     const response = await axios.get("http://localhost:8080/products",
+  //     {headers: {
+  //       Authorization: `Bearer ${currentUser.token}`,
+  //     },
+  //   });
 
-      const data = response.data;
-      setProducts(data);
-    };
-    getProducts();
-  }, []);
+  //     const data = response.data;
+  //     setProducts(data);
+  //   };
+  //   getProducts();
+  // }, []);
 
   if (!products) {
     return <div>products not found </div>;

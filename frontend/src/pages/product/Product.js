@@ -6,9 +6,10 @@ import axios from "axios";
 import { EditProductModal } from "./EditProductModal";
 import { DeleteProductModal } from "./DeleteProductModal";
 import { useUserContext } from "../../context/UserContext";
+import { useProductContext } from "../../context/ProductContext";
 
 export const Product = () => {
-  const [product, setProduct] = useState();
+  
   const { id } = useParams();
 
 
@@ -21,26 +22,30 @@ export const Product = () => {
   const handleCloseDelete = () => setOpenDelete(false);
   const {currentUser, userContextLoading } = useUserContext();
 
+  const { products, productContextLoading } = useProductContext();
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/products/${id}`,
-          {headers: {
-            Authorization: `Bearer ${currentUser.token}`,
-          },
-        }
-        );
-        const data = response.data;
-        setProduct(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchProduct();
-    return () => fetchProduct();
-  }, [id, currentUser.token]);
+  const product = products.find((product) => product._id === id);
+
+
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:8080/products/${id}`,
+  //         {headers: {
+  //           Authorization: `Bearer ${currentUser.token}`,
+  //         },
+  //       }
+  //       );
+  //       const data = response.data;
+  //       setProduct(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchProduct();
+  //   return () => fetchProduct();
+  // }, [id, currentUser.token]);
 
   if (userContextLoading) {
     return <div>Loading...</div>

@@ -6,7 +6,8 @@ export const ProductContext = createContext();
 
 export const ProductsContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [currentUser, userContextLoading] = useUserContext();
+  const {currentUser, userContextLoading} = useUserContext();
+  console.log(currentUser?.token);
   const [productContextLoading, setProductContextLoading] = useState(true);
 
   useEffect(() => {
@@ -35,9 +36,36 @@ export const ProductsContextProvider = ({ children }) => {
     }
   }, [currentUser, userContextLoading]);
 
+  const CREATE_PRODUCT = async (product) => {
+    setProducts([...products, product]);
+  };
+
+  const UPDATE_PRODUCT = async (updatedProduct) => {
+    const updatedProducts = products.map((product) => {
+      if (product._id === updatedProduct._id) {
+        return updatedProduct;
+      } else {
+        return product;
+      }
+    });
+    setProducts(updatedProducts);
+  };
+
+  const DELETE_PRODUCT = async (id) => {
+    const updatedProducts = products.filter((product) => product._id !== id);
+    setProducts(updatedProducts);
+  };
+
   return (
-    <ProductContext.Provider value={{ products, productContextLoading }}>
-      {" "}
+    <ProductContext.Provider
+      value={{
+        CREATE_PRODUCT,
+        UPDATE_PRODUCT,
+        DELETE_PRODUCT,
+        products,
+        productContextLoading,
+      }}
+    >
       {children}
     </ProductContext.Provider>
   );
@@ -47,18 +75,3 @@ export const useProductContext = () => {
   const context = useContext(ProductContext);
   return context;
 };
-
-// const CREATE_PRODUCT= async (updatedProduct) => {
-//  const updatedPrducts = prducts.map((product) => {
-//         if (product._id === updatedProduct._id) {
-//             return updatedProduct;
-//         } else {
-//             return product;
-//         }
-//     });
-
-//     setProducts(updatedPrducts);
-// }
-
-//     });
-// }

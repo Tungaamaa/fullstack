@@ -7,7 +7,7 @@ import { useUserContext } from "./context/UserContext";
 
 export const App = () => {
   const { currentUser, userContextLoading } = useUserContext();
-
+ 
   if (userContextLoading) {
     return <div>Loading...</div>;
   }
