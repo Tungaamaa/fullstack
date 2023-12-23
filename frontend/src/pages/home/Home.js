@@ -2,7 +2,9 @@ import React from "react";
 import "./Home.css";
 import { Header } from "../../component";
 import { useUserContext } from "../../context/UserContext";
-import homepage from "../../images/homepage-background.png";
+import smoothie1 from "../../images/smoothie1.jpeg";
+import smoothie2 from "../../images/smoothie2.jpeg";
+import smoothie3 from "../../images/smoothie3.jpeg";
 
 export const Home = () => {
   const { currentUser, userContextLoading } = useUserContext();
@@ -15,10 +17,13 @@ export const Home = () => {
   return (
     <div>
       <Header />
-      <div>
-      <img className="homepage" src={homepage}/>
+      <h1 className="homepage-top">🌈 Welcome, 🌱 Sip, Smile, Repeat!</h1>
+      <div className="homepage-main">
+     
+      <img className="homepage" src={smoothie2}/>
+      <img className="homepage" src={smoothie1}/>
+      <img className="homepage" src={smoothie3}/>
       </div>
-      from home
     </div>
   );
 };

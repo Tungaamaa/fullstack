@@ -1,6 +1,6 @@
 .header-main {
-  background-color: lightseagreen;
-  color: #fff;
+  background-color: lightblue;
+  color: azure;
   padding: 10px;
   text-align: center;
 }
@@ -12,8 +12,6 @@
   padding: 10px 0;
 }
 .header-items {
-  color: #fff;
-  text-decoration: none;
   padding: 10px 20px;
   margin: 0 10px;
   border-radius: 4px;
@@ -21,5 +19,5 @@
 }
 
 .header-items:hover {
-  background-color: #555;
+  background-color: white;
 }

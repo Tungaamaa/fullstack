@@ -4,6 +4,7 @@ import axios from "axios";
 import * as yup from "yup";
 import { useUserContext } from "../../context/UserContext";
 import { useProductContext } from "../../context/ProductContext";
+import "./Products.css"
 
 const validateForm = yup.object().shape({
   name: yup.string().min(2, "it must be more than 2 characters").required(),
@@ -95,39 +96,53 @@ export const CreateProductModal = (props) => {
   };
   return (
     <div>
-      <Modal open={open} handleClose={handleClose}>
+      <Modal
+        classname="new-product-module"
+        open={open}
+        handleClose={handleClose}
+      >
         <h3>Create product</h3>
         <span>{formErrors.name}</span>
+        <form>
         <input
-          type="text"
-          name="name"
-          value={formValues.name}
-          placeholder="name"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="description"
-          value={formValues.description}
-          onChange={handleChange}
-          placeholder="description"
-        />
-        <input
-          type="number"
-          name="price"
-          value={formValues.price}
-          onChange={handleChange}
-          placeholder="price"
-        />
-        <input
-          type="text"
-          name="category"
-          value={formValues.category}
-          onChange={handleChange}
-          placeholder="category"
-        />
-        <button onClick={handleClose}>Cancel</button>
-        <button onClick={handleSubmit}>Submit</button>
+        className="product-input"
+        type="text"
+        name="name"
+        value={formValues.name}
+        placeholder="name"
+        onChange={handleChange}
+      />
+      <input
+        className="product-input"
+        type="text"
+        name="description"
+        value={formValues.description}
+        onChange={handleChange}
+        placeholder="description"
+      />
+      <input
+        className="product-input"
+        type="number"
+        name="price"
+        value={formValues.price}
+        onChange={handleChange}
+        placeholder="price"
+      />
+      <input
+        className="product-input"
+        type="text"
+        name="category"
+        value={formValues.category}
+        onChange={handleChange}
+        placeholder="category"
+      />
+      <div className="product-module-buttons">
+      <button onClick={handleClose}>Cancel</button>
+      <button onClick={handleSubmit}>Submit</button>
+      </div>
+        </form>
+     
+        
       </Modal>
     </div>
   );
