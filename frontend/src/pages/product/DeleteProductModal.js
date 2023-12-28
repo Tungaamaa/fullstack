@@ -15,7 +15,7 @@ export const DeleteProductModal = (props) => {
   const handleDeleteProduct = async () => {
     try {
       const response = await axios.delete(
-        `https://fullstack-backend-oym1.onrender.com/products/${id}`,
+        `https://fullstack-backend-d3vu.onrender.com/products/${id}`,
         {
           headers: {
             Authorization: `Bearer ${currentUser.token}`,

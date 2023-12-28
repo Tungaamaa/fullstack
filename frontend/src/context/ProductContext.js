@@ -13,7 +13,7 @@ export const ProductsContextProvider = ({ children }) => {
     if (!userContextLoading) {
       const fetchProducts = async () => {
         try {
-          const response = await axios.get("https://fullstack-backend-oym1.onrender.com/products", {
+          const response = await axios.get("https://fullstack-backend-d3vu.onrender.com/products", {
             headers: {
               Authorization: `Bearer ${currentUser.token}`,
             },

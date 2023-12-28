@@ -70,7 +70,7 @@ export const SignUp = () => {
       });
     }
     try {
-      const response = await axios.post("https://fullstack-backend-oym1.onrender.com/users/sign-up", formValues);
+      const response = await axios.post("https://fullstack-backend-d3vu.onrender.com/users/sign-up", formValues);
 
       const user = response.data;
 
