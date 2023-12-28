@@ -9,7 +9,16 @@ const servicesRoutes = require("./routes/services");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+
+app.use(
+  cors({
+  origin: "https://fullstack-leap-frontend-five.vercel.app/",
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204,
+  })
+ );
 
 const port = process.env.PORT || 3000;
 
