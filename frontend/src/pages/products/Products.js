@@ -19,7 +19,7 @@ export const Products = () => {
 
   // useEffect(() => {
   //   const getProducts = async () => {
-  //     const response = await axios.get("http://localhost:8080/products",
+  //     const response = await axios.get("https://fullstack-backend-oym1.onrender.com/products",
   //     {headers: {
   //       Authorization: `Bearer ${currentUser.token}`,
   //     },

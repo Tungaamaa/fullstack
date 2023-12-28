@@ -70,7 +70,7 @@ export const CreateProductModal = (props) => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:8080/products",
+        "https://fullstack-backend-oym1.onrender.com/products",
         formValues,
         {
           headers: {

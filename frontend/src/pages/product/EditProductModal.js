@@ -26,7 +26,7 @@ export const EditProductModal = (props) => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.put(`http://localhost:8080/products/${id}`, formValues,
+      const response = await axios.put(`https://fullstack-backend-oym1.onrender.com/products/${id}`, formValues,
       {headers: {
         Authorization: `Bearer ${currentUser.token}`,
       },
