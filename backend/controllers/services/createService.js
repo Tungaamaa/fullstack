@@ -16,7 +16,7 @@ const createService = async (req, res) => {
           category,
         });
   
-        res.status(201).json( service );
+        res.status(201).json(service);
       }
     } catch (err) {
       return res.status(500).json({
