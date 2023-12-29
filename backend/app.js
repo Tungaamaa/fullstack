@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(
   cors({
-  origin: "https://fullstack-leap-frontend-five.vercel.app/",
+  origin: "https://fullstack-leap-frontend-five.vercel.app",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
