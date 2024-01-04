@@ -7,6 +7,7 @@ import { Modal } from "../../component";
 import { CreateProductModal } from "./CreateProductModal";
 import { useUserContext } from "../../context/UserContext";
 import { useProductContext } from "../../context/ProductContext";
+import background from "../../images/background.jpeg";
 
 export const Products = () => {
   const navigate = useNavigate();
@@ -17,20 +18,6 @@ export const Products = () => {
 
   const { products } = useProductContext();
 
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     const response = await axios.get("https://fullstack-backend-d3vu.onrender.com/// products",
-  //     {headers: {
-  //       Authorization: `Bearer ${currentUser.token}`,
-  //     },
-  //   });
-
-  //     const data = response.data;
-  //     setProducts(data);
-  //   };
-  //   getProducts();
-  // }, []);
-
   if (!products) {
     return <div>products not found </div>;
   }
@@ -38,9 +25,10 @@ export const Products = () => {
   return (
     <div>
       <Header />
+      <img className="products-page-background" src={background} />
       <div>
         <div className="products-page-top">
-          <h1>This is products page</h1>
+          <h1>Delicious Smoothie Recipes</h1>
         </div>
 
         <div className="products-page-top">

@@ -12,7 +12,7 @@ const validateForm = yup.object().shape({
     .string()   
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number, and one special case Character"
     )
     .required(),
 });
@@ -33,21 +33,22 @@ export const SignUp = () => {
     password: "",
     required: "",
   });
+  
+  const [notification, setNotification] = useState('');
+
   const navigate = useNavigate();
-  const handleInput = (e) => {
+
+  const handleInput = async (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    yup
-      .reach(validateForm, name)
-      .validate(value)
-      .then((response) => {
-        console.log("response");
-        setFormErrors({ ...formErrors, [name]: "" });
-      })
-      .catch((error) => {
-        console.log(error.message);
-        setFormErrors({ ...formErrors, [name]: error.message });
-      });
+
+    try {
+      await yup.reach(validateForm, name).validate(value);
+      setFormErrors({ ...formErrors, [name]: "" });
+    } catch (error) {
+      setFormErrors({ ...formErrors, [name]: error.message });
+    }
+
     setFormValues({ ...formValues, [name]: value });
   };
 
@@ -69,35 +70,39 @@ export const SignUp = () => {
         ...formErrors,
         required: "Please enter a valid form name or description",
       });
-    }
-    try {
-      const response = await axios.post("https://fullstack-backend-d3vu.onrender.com/users/sign-up", formValues);
+    } else {
+      try {
+        const response = await axios.post("https://fullstack-backend-d3vu.onrender.com/users/sign-up", formValues);
 
-      const user = response.data;
+        const user = response.data;
 
-      localStorage.setItem("user", JSON.stringify(user));
-      SignUp(user);
-
-      setFormValues({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-      });
-      alert("sign-up sucessfully");
-      navigate("/");
-      
-    } catch (error) {
-      console.error(error);
+        localStorage.setItem("user", JSON.stringify(user));
+        setFormValues({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+        });
+        setNotification('Signup successful!');
+        navigate("/");
+        
+      } catch (error) {
+        if (error.response && error.response.status === 409) {
+          setNotification('User with this email already exists.');
+        } else {
+          console.error(error);
+        }
+      }
     }
   };
+
   return (
     <div>
       <div className="signup-page-content">
         <div className="signup-page-container">
           <h1>Sign Up</h1>
           <input 
-          className="signup-input"
+            className="signup-input"
             type="text"
             name="firstName"
             value={formValues.firstName}
@@ -106,7 +111,7 @@ export const SignUp = () => {
           ></input>
           {formErrors.firstName}
           <input
-          className="signup-input"
+            className="signup-input"
             type="text"
             name="lastName"
             value={formValues.lastName}
@@ -115,7 +120,7 @@ export const SignUp = () => {
           ></input>
           {formErrors.lastName}
           <input
-          className="signup-input"
+            className="signup-input"
             type="text"
             name="email"
             value={formValues.email}
@@ -124,7 +129,7 @@ export const SignUp = () => {
           ></input>
           {formErrors.email}
           <input
-          className="signup-input"
+            className="signup-input"
             type="text"
             name="password"
             value={formValues.password}
@@ -136,6 +141,7 @@ export const SignUp = () => {
         </div>
       </div>
       <h1>{formErrors.required}</h1>
+      <div>{notification}</div>
     </div>
   );
 };
