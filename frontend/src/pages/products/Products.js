@@ -25,7 +25,7 @@ export const Products = () => {
   return (
     <div>
       <Header />
-      <img className="products-page-background" src={background} />
+      
       <div>
         <div className="products-page-top">
           <h1>Delicious Smoothie Recipes</h1>

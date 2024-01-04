@@ -21,17 +21,14 @@
 }
 .products-individual {
   background-color: lightskyblue;
-  /* min-width: 150px;
+  min-width: 150px;
   min-height: 200px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  width: 400px;
-  padding: 20px;
+  align-items: center;
+
 }
 
 .new-product-module {
