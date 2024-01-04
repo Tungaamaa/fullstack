@@ -61,6 +61,7 @@ export const ProductsContextProvider = ({ children }) => {
         CREATE_PRODUCT,
         UPDATE_PRODUCT,
         DELETE_PRODUCT,
+        setProducts,
         products,
         productContextLoading,
       }}

@@ -2,9 +2,16 @@ import React from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
+import { useProductContext } from "../../context/ProductContext";
 
 export const Header = () => {
   const { currentUser, signOut, userContextLoading } = useUserContext();
+  const { setProducts } = useProductContext();
+
+  const handleLogOut = () => {
+    signOut();
+    setProducts([]);
+  }
 
   if (userContextLoading) {
     return <div>Loading...</div>;
@@ -21,7 +28,7 @@ export const Header = () => {
           <span className="header-items">
             <Link to="/products">Products</Link>
           </span>
-          <span className="header-items" onClick={signOut}>Logout</span>
+          <span className="header-items" onClick={handleLogOut}>Logout</span>
         </div>
       </div>
     );

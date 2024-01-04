@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import * as yup from "yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const validateForm = yup.object().shape({
   firstName: yup.string().min(4, "Please enter your complete name.").required(),
@@ -32,7 +33,7 @@ export const SignUp = () => {
     password: "",
     required: "",
   });
-
+  const navigate = useNavigate();
   const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -84,6 +85,8 @@ export const SignUp = () => {
         password: "",
       });
       alert("sign-up sucessfully");
+      navigate("/");
+      
     } catch (error) {
       console.error(error);
     }
