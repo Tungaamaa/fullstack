@@ -1,16 +1,14 @@
 const Product = require("../../models/product");
 
 const getAllProducts = async (req, res) => {
-  try {
-    const products = await Product.find({});
-    if (!products) {
-      res.status(404).json({ message: "Products not found" });
-      return;
-    }
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  const userId = req.user._id;
+
+  const products = await Product.find({ userId });
+  if (!products) {
+    return res.status(404).json({ message: "Products not found" });
   }
+
+  res.status(200).json(products);
 };
 
 module.exports = {

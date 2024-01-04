@@ -2,9 +2,11 @@ const Product = require("../../models/product")
 
 const createProduct = async (req, res) => {
     const { name, price, description, category } = req.body;
+
+    const userId = req.user._id;
   
     try {
-      if (!name || !price || !description || !category) {
+      if (!name || !price || !description || !category || !userId) {
         return res.status(400).json({
           message: "All fields are required",
         });
@@ -14,6 +16,7 @@ const createProduct = async (req, res) => {
           price,
           description,
           category,
+          userId,
         });
   
         res.status(201).json(product);

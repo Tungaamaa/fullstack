@@ -17,7 +17,11 @@ const productSchema = new mongoose.Schema(
         category : {
             type: String,
             required: [true, "Product category is required"]
-        }
+        },
+        userId: {
+            type: String,
+            required: [true, "Product userId is required"],
+        },
     },
     {
         timestamps: true,
