@@ -4,7 +4,8 @@ import axios from "axios";
 import * as yup from "yup";
 import { useUserContext } from "../../context/UserContext";
 import { useProductContext } from "../../context/ProductContext";
-import "./Products.css"
+import "./Products.css";
+import { Radio } from 'antd';
 
 const validateForm = yup.object().shape({
   name: yup.string().min(2, "it must be more than 2 characters").required(),
@@ -12,10 +13,12 @@ const validateForm = yup.object().shape({
   price: yup.number(),
   category: yup.string().required(),
 });
+const plainOptions = ["Private", "Public"];
 
 export const CreateProductModal = (props) => {
   const { open, handleClose } = props;
-
+  
+  const [type, setType] = useState("public");
   const { currentUser } = useUserContext();
   const { CREATE_PRODUCT } = useProductContext();
 
@@ -33,7 +36,11 @@ export const CreateProductModal = (props) => {
     category: "",
     required: "",
   });
-
+ 
+  const onChangeType = (event) => {
+    const { value } = event.target;
+    setType(value);
+  };
   const handleChange = (e) => {
     const inputName = e.target.name;
     const inputValue = e.target.value;
@@ -136,6 +143,13 @@ export const CreateProductModal = (props) => {
         onChange={handleChange}
         placeholder="category"
       />
+      <Radio.Group
+      options={plainOptions}
+      onChange={onChangeType}
+      value={type}
+      optionType="button"
+      buttonStyle="solid
+      "/>
       <div className="product-module-buttons">
       <button onClick={handleClose}>Cancel</button>
       <button onClick={handleSubmit}>Submit</button>
