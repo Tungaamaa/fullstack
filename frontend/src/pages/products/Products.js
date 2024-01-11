@@ -25,7 +25,7 @@ export const Products = () => {
   return (
     <div>
       <Header />
-      
+   
       <div>
         <div className="products-page-top">
           <h1>Delicious Smoothie Recipes</h1>
@@ -43,6 +43,7 @@ export const Products = () => {
               key={product._id}
               onClick={() => navigate(`/products/${product._id}`)}
             >
+            <h4 className="type">{product.type}</h4>
               <h3>{product.name}</h3>
               <p>{product.description}</p>
               <p>{product.price}</p>

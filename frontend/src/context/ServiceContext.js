@@ -13,7 +13,7 @@ export const ServiceContextProvider = ({ children }) => {
     if (!userContextLoading) {
       const fetchServices = async () => {
         try {
-          const response = await axios.get("https://fullstack-backend-d3vu.onrender.com/services", {
+          const response = await axios.get("http://localhost:8080/services", {
             headers: {
               Authorization: `Bearer ${currentUser.token}`,
             },

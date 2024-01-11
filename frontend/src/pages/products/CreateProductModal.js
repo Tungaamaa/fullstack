@@ -13,7 +13,7 @@ const validateForm = yup.object().shape({
   price: yup.number(),
   category: yup.string().required(),
 });
-const plainOptions = ["Private", "Public"];
+const plainOptions = ["private", "public"];
 
 export const CreateProductModal = (props) => {
   const { open, handleClose } = props;
@@ -77,7 +77,7 @@ export const CreateProductModal = (props) => {
     }
     try {
       const response = await axios.post(
-        "https://fullstack-backend-d3vu.onrender.com/products",
+        "http://localhost:8080/products",
         formValues,
         {
           headers: {

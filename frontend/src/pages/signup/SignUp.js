@@ -72,7 +72,7 @@ export const SignUp = () => {
       });
     } else {
       try {
-        const response = await axios.post("https://fullstack-backend-d3vu.onrender.com/users/sign-up", formValues);
+        const response = await axios.post("http://localhost:8080/users/sign-up", formValues);
 
         const user = response.data;
 

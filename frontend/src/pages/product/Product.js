@@ -31,7 +31,7 @@ export const Product = () => {
   //   const fetchProduct = async () => {
   //     try {
   //       const response = await axios.get(
-  //         `https://fullstack-backend-d3vu.onrender.com/products/${id}`,
+  //         `http://localhost:8080/products/${id}`,
   //         {headers: {
   //           Authorization: `Bearer ${currentUser.token}`,
   //         },

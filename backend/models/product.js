@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema(
         // }
         type: {
             type: String,
-            enum: ["Public", "Private"],
+            enum: ["public", "private"],
             required: [true, "Product visibility is required"],
         },
     },
