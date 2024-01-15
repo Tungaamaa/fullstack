@@ -5,7 +5,9 @@ import * as yup from "yup";
 import { useUserContext } from "../../context/UserContext";
 import { useProductContext } from "../../context/ProductContext";
 import "./Products.css";
-import { Radio } from 'antd';
+import { Radio } from "antd";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase/firebase";
 
 const validateForm = yup.object().shape({
   name: yup.string().min(2, "it must be more than 2 characters").required(),
@@ -16,8 +18,9 @@ const validateForm = yup.object().shape({
 const plainOptions = ["private", "public"];
 
 export const CreateProductModal = (props) => {
+  const [file, setFile] = useState();
   const { open, handleClose } = props;
-  
+
   const [type, setType] = useState("public");
   const { currentUser } = useUserContext();
   const { CREATE_PRODUCT } = useProductContext();
@@ -27,6 +30,7 @@ export const CreateProductModal = (props) => {
     description: "",
     price: "",
     category: "",
+    image: "",
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -36,10 +40,22 @@ export const CreateProductModal = (props) => {
     category: "",
     required: "",
   });
- 
+
   const onChangeType = (event) => {
     const { value } = event.target;
     setType(value);
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const uploadImage = async () => {
+    const storageRef = ref(storage, file.name);
+    await uploadBytes(storageRef, file);
+    const downloadImageUrl = await getDownloadURL(storageRef);
+
+    return downloadImageUrl;
   };
   const handleChange = (e) => {
     const inputName = e.target.name;
@@ -61,7 +77,8 @@ export const CreateProductModal = (props) => {
       formValues.name === "" ||
       formValues.description === "" ||
       formValues.price === "" ||
-      formValues.category === ""
+      formValues.category === "" ||
+      file === undefined
     ) {
       setFormErrors({ ...formErrors, required: "All fields required" });
     } else if (
@@ -76,9 +93,10 @@ export const CreateProductModal = (props) => {
       });
     }
     try {
+      const imageUrl = await uploadImage();
       const response = await axios.post(
         "http://localhost:8080/products",
-        formValues,
+        { ...formValues, image: imageUrl },
         {
           headers: {
             Authorization: `Bearer ${currentUser.token}`,
@@ -94,6 +112,7 @@ export const CreateProductModal = (props) => {
         description: "",
         price: "",
         category: "",
+        imageUrl: "",
       });
 
       handleClose();
@@ -103,61 +122,69 @@ export const CreateProductModal = (props) => {
   };
   return (
     <div>
-      <Modal
-        classname="new-product-module"
-        open={open}
-        handleClose={handleClose}
-      >
-        <h3>Create product</h3>
-        <span>{formErrors.name}</span>
-        <form>
+    <div >
+    <Modal
+    classname="new-recipe-module"
+      open={open}
+      handleClose={handleClose}
+    >
+      <h3>Create new recipe</h3>
+      <span>{formErrors.name}</span>
+      <form>
         <input
-        className="product-input"
-        type="text"
-        name="name"
-        value={formValues.name}
-        placeholder="name"
-        onChange={handleChange}
-      />
-      <input
-        className="product-input"
-        type="text"
-        name="description"
-        value={formValues.description}
-        onChange={handleChange}
-        placeholder="description"
-      />
-      <input
-        className="product-input"
-        type="number"
-        name="price"
-        value={formValues.price}
-        onChange={handleChange}
-        placeholder="price"
-      />
-      <input
-        className="product-input"
-        type="text"
-        name="category"
-        value={formValues.category}
-        onChange={handleChange}
-        placeholder="category"
-      />
-      <Radio.Group
-      options={plainOptions}
-      onChange={onChangeType}
-      value={type}
-      optionType="button"
-      buttonStyle="solid
-      "/>
-      <div className="product-module-buttons">
-      <button onClick={handleClose}>Cancel</button>
-      <button onClick={handleSubmit}>Submit</button>
-      </div>
-        </form>
+          className="product-input"
+          type="text"
+          name="name"
+          value={formValues.name}
+          placeholder="name"
+          onChange={handleChange}
+        />
+        <input
+          className="product-input"
+          type="text"
+          name="description"
+          value={formValues.description}
+          onChange={handleChange}
+          placeholder="description"
+        />
+        <input
+          className="product-input"
+          type="number"
+          name="price"
+          value={formValues.price}
+          onChange={handleChange}
+          placeholder="price"
+        />
+        <input
+          className="product-input"
+          type="text"
+          name="category"
+          value={formValues.category}
+          onChange={handleChange}
+          placeholder="category"
+        />
+        <input
+          type="file"
+          placeholder="enter your image"
+          name="image"
+          onChange={handleFileChange}
+        ></input>
+        <Radio.Group
+          options={plainOptions}
+          onChange={onChangeType}
+          value={type}
+          optionType="button"
+          buttonStyle="solid
+    "
+        />
+        <div className="product-module-buttons">
+          <button onClick={handleClose}>Cancel</button>
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
+      </form>
+    </Modal>
+    </div>
      
-        
-      </Modal>
     </div>
   );
 };

@@ -21,12 +21,12 @@ export const Header = () => {
     return (
       <div className="header-main">
         <div className="header">
-          <span className="header-items">
+          <span className="header-item">
             <Link to="/">Home</Link>
           </span>
 
           <span className="header-items">
-            <Link to="/products">Products</Link>
+            <Link to="/products">Recipes</Link>
           </span>
           <span className="header-items" onClick={handleLogOut}>Logout</span>
         </div>
@@ -37,7 +37,7 @@ export const Header = () => {
   return (
     <div className="header-main">
       <div className="header">
-        <span className="header-items">
+        <span className="header-item">
           <Link to="/">Home</Link>
         </span>
 

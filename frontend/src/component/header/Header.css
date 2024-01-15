@@ -1,21 +1,33 @@
 .header-main {
   background-color: lightblue;
   color: azure;
-  padding: 10px;
-  text-align: center;
+  /* padding: 10px;
+  text-align: center; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  align-items: center;
 }
 
 .header {
+  width: 1080px;
   display: flex;
-  justify-content: center;
-  background-color: lightskyblue;
-  padding: 10px 0;
+  justify-content: space-between;
+  font-size: 18px;
 }
 .header-items {
   padding: 10px 20px;
   margin: 0 10px;
   border-radius: 4px;
   transition: background-color 0.3s;
+}
+.header-item {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  margin-right: 800px;
 }
 
 .header-items:hover {

@@ -9,9 +9,7 @@ import { useUserContext } from "../../context/UserContext";
 import { useProductContext } from "../../context/ProductContext";
 
 export const Product = () => {
-  
   const { id } = useParams();
-
 
   const [openEdit, setOpenEdit] = React.useState(false);
   const handleOpenEdit = () => setOpenEdit(true);
@@ -20,63 +18,54 @@ export const Product = () => {
   const [openDelete, setOpenDelete] = React.useState(false);
   const handleOpenDelete = () => setOpenDelete(true);
   const handleCloseDelete = () => setOpenDelete(false);
-  const {currentUser, userContextLoading } = useUserContext();
+  const { currentUser, userContextLoading } = useUserContext();
 
   const { products, productContextLoading } = useProductContext();
 
   const product = products.find((product) => product._id === id);
 
-
-  // useEffect(() => {
-  //   const fetchProduct = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `http://localhost:8080/products/${id}`,
-  //         {headers: {
-  //           Authorization: `Bearer ${currentUser.token}`,
-  //         },
-  //       }
-  //       );
-  //       const data = response.data;
-  //       setProduct(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchProduct();
-  //   return () => fetchProduct();
-  // }, [id, currentUser.token]);
-
   if (userContextLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (!product) {
-    return (
-      <div> item not found</div>
-    )
+    return <div> item not found</div>;
   }
 
   return (
     <div>
       <Header />
       <div className="product-page-top">
-        <h1>this is Product page</h1>
+        <h1>Best Green Smoothie</h1>
       </div>
       <div className="product-page-main">
         {product && (
           <div className="single-product">
-            <h3>Name :{product.name}</h3>
-            <p>Description : {product.description}</p>
-            <p>Price : {product.price}</p>
-            <p>Category : {product.category}</p>
+            <div className="single-recipe">
+              <div className="single-recipe-content">
+                <h3>Recipe name :{product.name}</h3>
+                <p>Ingredients : {product.description}</p>
+                <p>Instructions : {product.price}</p>
+                <p>Description : {product.category}</p>
+              </div>
+              <div className="single-recipe-image">
+                <img src={product.image} />
+              </div>
+            </div>
+            <div className="single-recipe-buttons">
             <button onClick={handleOpenEdit}>edit</button>
             <button onClick={handleOpenDelete}>delete</button>
+            </div>
+           
           </div>
         )}
       </div>
-      <EditProductModal product={product} open={openEdit} handleClose={handleCloseEdit}/>
-      <DeleteProductModal open={openDelete} handleClose={handleCloseDelete}/>
+      <EditProductModal
+        product={product}
+        open={openEdit}
+        handleClose={handleCloseEdit}
+      />
+      <DeleteProductModal open={openDelete} handleClose={handleCloseDelete} />
     </div>
   );
 };

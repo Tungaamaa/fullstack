@@ -11,12 +11,41 @@
 }
 
 .single-product {
-    background-color: lightskyblue;
-    min-width: 800px;
-    min-height: 200px;
-    border-radius: 5px;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 800px;
+    height: 600px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 10px gray;
+}
+
+.single-recipe {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.single-recipe-content {
+    width: 50%;
+   padding-left: 30px;
+}
+
+.single-recipe-image {
+    width: 50%;
+    border: 1px solid gray;
+    height: 90%;
+}
+
+.single-recipe-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
 }

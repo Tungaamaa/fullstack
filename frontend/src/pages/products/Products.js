@@ -25,31 +25,43 @@ export const Products = () => {
   return (
     <div>
       <Header />
-   
-      <div>
+
+      <div className="products-page-content">
         <div className="products-page-top">
           <h1>Delicious Smoothie Recipes</h1>
         </div>
-
-        <div className="products-page-top">
-          <button onClick={handleOpen}>Create product</button>
+        <div className="search-bar">
+          <input type="search" placeholder="Search" className="search-input" />
         </div>
-      </div>
-      <div className="products-page-main">
-        {products &&
-          products.map((product) => (
-            <div
-              className="products-individual"
-              key={product._id}
-              onClick={() => navigate(`/products/${product._id}`)}
-            >
-            <h4 className="type">{product.type}</h4>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <p>{product.price}</p>
-              <p>{product.category}</p>
-            </div>
-          ))}
+        <div className="products-page-products-container">
+          <div className="create-new-product-container">
+            <button onClick={handleOpen}>Create new product</button>
+          </div>
+        </div>
+        <div className="products-page-main">
+          {products &&
+            products.map((product) => (
+              <div
+                className="products-individual"
+                key={product._id}
+                onClick={() => navigate(`/products/${product._id}`)}
+              >
+                <div className="recipes">
+                  <div className="recipes-content">
+                    <h4 className="type">{product.type}</h4>
+
+                    <h3>Recipe name: {product.name}</h3>
+                    <p>Ingredients:{product.description}</p>
+                    <p>Instructions:{product.price}</p>
+                    <p>Description:{product.category}</p>
+                  </div>
+                  <div className="recipes-image">
+                    <img src={product.image} />
+                  </div>
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
       <CreateProductModal open={open} handleClose={handleClose} />
     </div>
