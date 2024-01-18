@@ -50,7 +50,7 @@ export const CreateProductModal = (props) => {
     setFile(e.target.files[0]);
   };
 
-  const uploadImage = async () => {
+  const uploadImage = async (file) => {
     const storageRef = ref(storage, file.name);
     await uploadBytes(storageRef, file);
     const downloadImageUrl = await getDownloadURL(storageRef);
@@ -72,119 +72,110 @@ export const CreateProductModal = (props) => {
     setFormValues({ ...formValues, [inputName]: inputValue });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("hjhjh");
     if (
       formValues.name === "" ||
       formValues.description === "" ||
       formValues.price === "" ||
-      formValues.category === "" ||
-      file === undefined
+      formValues.category === ""
     ) {
       setFormErrors({ ...formErrors, required: "All fields required" });
-    } else if (
-      formErrors.name !== "" ||
-      formErrors.description !== "" ||
-      formErrors.price !== "" ||
-      formErrors.category !== ""
-    ) {
-      setFormErrors({
-        ...formErrors,
-        required: "Please enter a valid form name or description",
-      });
-    }
-    try {
-      const imageUrl = await uploadImage();
-      const response = await axios.post(
-        "http://localhost:8080/products",
-        { ...formValues, image: imageUrl },
-        {
-          headers: {
-            Authorization: `Bearer ${currentUser.token}`,
-          },
-        }
-      );
+    } else {
+      try {
+        const imageUrl = await uploadImage(file);
+        console.log(imageUrl);
+        const response = await axios.post(
+          "http://localhost:8080/products",
+          { ...formValues, image: imageUrl, type:type, },
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser.token}`,
+            },
+          }
+        );
 
-      const data = await response.data;
-      CREATE_PRODUCT(data);
+        const data = await response.data;
+        CREATE_PRODUCT(data);
 
-      setFormValues({
-        name: "",
-        description: "",
-        price: "",
-        category: "",
-        imageUrl: "",
-      });
+        setFormValues({
+          name: "",
+          description: "",
+          price: "",
+          category: "",
+          imageUrl: "",
+        });
 
-      handleClose();
-    } catch (error) {
-      console.error(error);
+        handleClose();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
   return (
     <div>
-    <div >
-    <Modal
-    classname="new-recipe-module"
-      open={open}
-      handleClose={handleClose}
-    >
-      <h3>Create new recipe</h3>
-      <span>{formErrors.name}</span>
-      <form>
-        <input
-          className="product-input"
-          type="text"
-          name="name"
-          value={formValues.name}
-          placeholder="name"
-          onChange={handleChange}
-        />
-        <input
-          className="product-input"
-          type="text"
-          name="description"
-          value={formValues.description}
-          onChange={handleChange}
-          placeholder="description"
-        />
-        <input
-          className="product-input"
-          type="number"
-          name="price"
-          value={formValues.price}
-          onChange={handleChange}
-          placeholder="price"
-        />
-        <input
-          className="product-input"
-          type="text"
-          name="category"
-          value={formValues.category}
-          onChange={handleChange}
-          placeholder="category"
-        />
-        <input
-          type="file"
-          placeholder="enter your image"
-          name="image"
-          onChange={handleFileChange}
-        ></input>
-        <Radio.Group
-          options={plainOptions}
-          onChange={onChangeType}
-          value={type}
-          optionType="button"
-          buttonStyle="solid
+      <div classname="new-recipe-module">
+        <Modal
+          
+          open={open}
+          handleClose={handleClose}
+        >
+          <h3>Create new recipe</h3>
+          <span>{formErrors.name}</span>
+
+          <input
+            className="product-input"
+            type="text"
+            name="name"
+            value={formValues.name}
+            placeholder="name"
+            onChange={handleChange}
+          />
+          <input
+            className="product-input"
+            type="text"
+            name="description"
+            value={formValues.description}
+            onChange={handleChange}
+            placeholder="description"
+          />
+          <input
+            className="product-input"
+            type="number"
+            name="price"
+            value={formValues.price}
+            onChange={handleChange}
+            placeholder="price"
+          />
+          <input
+            className="product-input"
+            type="text"
+            name="category"
+            value={formValues.category}
+            onChange={handleChange}
+            placeholder="category"
+          />
+          <input
+            type="file"
+            placeholder="enter your image"
+            name="image"
+            onChange={handleFileChange}
+          ></input>
+          <Radio.Group
+            options={plainOptions}
+            onChange={onChangeType}
+            value={type}
+            optionType="button"
+            buttonStyle="solid
     "
-        />
-        <div className="product-module-buttons">
-          <button onClick={handleClose}>Cancel</button>
-          <button onClick={handleSubmit}>Submit</button>
-        </div>
-      </form>
-    </Modal>
-    </div>
-     
+          />
+          <div className="product-module-buttons">
+            <button onClick={handleClose}>Cancel</button>
+            <button onClick={handleSubmit}>Submit</button>
+          </div>
+        </Modal>
+      </div>
     </div>
   );
 };

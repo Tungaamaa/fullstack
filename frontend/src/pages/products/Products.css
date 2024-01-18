@@ -41,7 +41,13 @@
 
 .create-new-product-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  padding-bottom: 30px;
+}
+
+.create-new-product-button {
+  background-color: lightblue;
+  border-radius: 5px;
 }
 
 .products-page-main {
@@ -79,12 +85,22 @@
  
 }
 .recipes-image {
-  height: 100%;
+  height: 90%;
   width: 50%;
-  border: solid 1px black;
+  padding-right: 10px;
+  
 }
 
+.recipe-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
 
+.type {
+  background-color: lightblue;
+  border-radius: 10px;
+}
 
 .new-recipe-module {
   background-color: white;
@@ -95,13 +111,6 @@
   height: 500px;
 }
 
-
-/* .form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-} */
 
 .product-input {
   margin-bottom: 10px;

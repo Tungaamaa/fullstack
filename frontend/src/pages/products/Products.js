@@ -35,7 +35,7 @@ export const Products = () => {
         </div>
         <div className="products-page-products-container">
           <div className="create-new-product-container">
-            <button onClick={handleOpen}>Create new product</button>
+            <button className="create-new-product-button" onClick={handleOpen}>Create new product</button>
           </div>
         </div>
         <div className="products-page-main">
@@ -48,7 +48,7 @@ export const Products = () => {
               >
                 <div className="recipes">
                   <div className="recipes-content">
-                    <h4 className="type">{product.type}</h4>
+                    <h4 className="type">visibility:{product.type}</h4>
 
                     <h3>Recipe name: {product.name}</h3>
                     <p>Ingredients:{product.description}</p>
@@ -56,7 +56,7 @@ export const Products = () => {
                     <p>Description:{product.category}</p>
                   </div>
                   <div className="recipes-image">
-                    <img src={product.image} />
+                    <img className="recipe-image" src={product.image} />
                   </div>
                 </div>
               </div>

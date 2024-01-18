@@ -49,7 +49,7 @@ export const Product = () => {
                 <p>Description : {product.category}</p>
               </div>
               <div className="single-recipe-image">
-                <img src={product.image} />
+                <img className="individual-recipe-image" src={product.image} />
               </div>
             </div>
             <div className="single-recipe-buttons">
