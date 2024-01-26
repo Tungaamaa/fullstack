@@ -6,6 +6,7 @@ const cors = require("cors");
 const usersRoutes = require("./routes/users");
 const productsRoutes = require("./routes/products");
 const servicesRoutes = require("./routes/services");
+const accountRoutes = require("./routes/account");
 
 const app = express();
 app.use(express.json());
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
 app.use("/services", servicesRoutes);
+app.use("/account", accountRoutes);
 
 //middleware error handling
 app.use((req, res, next) => {

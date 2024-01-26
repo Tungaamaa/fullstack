@@ -1,0 +1,52 @@
+.profile-page{
+    height: 100vh;
+    width: 100vw;
+    background-color: #f5f7fa;
+}
+
+
+.profile-container {
+    max-width: 400px;
+    height: 60%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+  }
+  
+ 
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .profile-top {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .profile-edit-button {
+    padding-top: 40px;
+  }
+  
+  
+  .username {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+  
+  
+  .email {
+    color: #555;
+    margin-top: 5px;
+  }
+   .profile-items {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 10px;
+ 
+   }

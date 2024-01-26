@@ -28,6 +28,9 @@ export const Header = () => {
           <span className="header-items">
             <Link to="/products">Recipes</Link>
           </span>
+          <span className="header-items">
+            <Link to="/profile">Profile</Link>
+          </span>
           <span className="header-items" onClick={handleLogOut}>Logout</span>
         </div>
       </div>
